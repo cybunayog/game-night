@@ -30,7 +30,10 @@ npm i
 npm start
 ```
 
-
+## Branch use
+You have 2 branches on this repo.
+* develop --> your development branch that is always up to date. Update for every finished feature.
+* master --> your production branch. Only update every finished sprint.
 
 ## Meet the Team
 * [Vazken Avetissian](https://github.com/vavetissian)
