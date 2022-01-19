@@ -3,8 +3,8 @@
 
 ## Requirements
 * Yarn or NPM
-** If using yarn, the commands below would be replaced with yarn instead of npm.
-** Installing yarn
+> If using yarn, the commands below would be replaced with yarn instead of npm after cloning the repo.
+* Installing yarn
 ```bash
 npm i --g yarn
 ```
@@ -18,8 +18,12 @@ npm i --g expo-cli
 git config --global user.name "John Doe"
 git config --global user.email johndoe@example.com
 ```
-* Get the [repository](https://github.com/cybunayog/game-night.git) by pasting the link to whatever VCM you're using.
-* Once repo is cloned, go to the game-night directory and download dependencies
+* Copy and paste this [repository](https://github.com/cybunayog/game-night.git) to start cloning/downloading.
+* The command to clone in your terminal/console.
+```bash
+git clone https://github.com/cybunayog/game-night.git
+```
+* Once repo is cloned, `cd` to the game-night directory and download dependencies
 ```bash
 npm i
 ```
@@ -32,8 +36,9 @@ npm start
 
 ## Branch use
 You have 2 branches on this repo.
-* develop --> your development branch that is always up to date. Update for every finished feature.
+* develop --> your development branch that is always up to date. Use this branch for developments only. Update for every finished feature.
 * master --> your production branch. Only update every finished sprint.
+> Utilize pull requests
 
 ## Meet the Team
 * [Vazken Avetissian](https://github.com/vavetissian)
