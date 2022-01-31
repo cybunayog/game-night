@@ -8,12 +8,10 @@ import LoginScreen from "react-native-login-screen";
 function Login ({ navigation })  {
     return (
         <ScrollView style={styles.scrollView}>
-       <LoginScreen
-  
-  onLoginPress={() => {}}
-  onHaveAccountPress={() => {}}
-  onEmailChange={(email: string) => {}}
-  onPasswordChange={(password: string) => {}}
+    <LoginScreen
+      onLoginPress={() => {}}
+      onEmailChange={(email: string) => {}}
+      onPasswordChange={(password: string) => {}}
 />
       <Card style={styles.card}>
         <Card.Title title="Navigate to 'CreateAccount' Screen" />
