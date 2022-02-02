@@ -1,22 +1,60 @@
-import React from 'react';
-import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { Provider as PaperProvider } from 'react-native-paper';
-import Login from './pages/login';
-import CreateAccount from './pages/CreateAccount';
-import LoginScreen from "react-native-login-screen";
+// import React from 'react';
+// import { NavigationContainer } from '@react-navigation/native';
+// import { createNativeStackNavigator } from '@react-navigation/native-stack';
+// import { Provider as PaperProvider } from 'react-native-paper';
+// import Login from './pages/login';
+// import CreateAccount from './pages/CreateAccount';
+// import LoginScreen from "react-native-login-screen";
 
-const Stack = createNativeStackNavigator()
+// const Stack = createNativeStackNavigator()
+
+// export default function App() {
+//   return (
+//     <PaperProvider>
+//       <NavigationContainer>
+//         <Stack.Navigator>
+//           <Stack.Screen name="Login" component={Login} />
+//           <Stack.Screen name="CreateAccount" component={CreateAccount} />
+//         </Stack.Navigator>
+//     </NavigationContainer>
+//     </PaperProvider>
+//   );
+// }
+import React from 'react'
+import { Provider } from 'react-native-paper'
+import { NavigationContainer } from '@react-navigation/native'
+import { createStackNavigator } from '@react-navigation/stack'
+import 'react-native-gesture-handler';
+import { theme } from './core/theme'
+import {
+  StartScreen,
+  LoginScreen,
+  RegisterScreen,
+  ResetPasswordScreen,
+  Dashboard,
+} from './pages'
+const Stack = createStackNavigator()
 
 export default function App() {
   return (
-    <PaperProvider>
+    <Provider theme={theme}>
       <NavigationContainer>
-        <Stack.Navigator>
-          <Stack.Screen name="Login" component={Login} />
-          <Stack.Screen name="CreateAccount" component={CreateAccount} />
+        <Stack.Navigator
+          initialRouteName="StartScreen"
+          screenOptions={{
+            headerShown: false,
+          }}
+        >
+          <Stack.Screen name="StartScreen" component={StartScreen} />
+          <Stack.Screen name="LoginScreen" component={LoginScreen} />
+          <Stack.Screen name="RegisterScreen" component={RegisterScreen} />
+          <Stack.Screen name="Dashboard" component={Dashboard} />
+          <Stack.Screen
+            name="ResetPasswordScreen"
+            component={ResetPasswordScreen}
+          />
         </Stack.Navigator>
-    </NavigationContainer>
-    </PaperProvider>
-  );
+      </NavigationContainer>
+    </Provider>
+  )
 }
