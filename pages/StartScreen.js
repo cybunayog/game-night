@@ -9,9 +9,9 @@ export default function StartScreen({ navigation }) {
     return (
         <Background>
             <Logo />
-            <Header>Login Template</Header>
+            <Header>Game Night</Header>
             <Paragraph>
-                The easiest way to start with your amazing application.
+                Play games. Make friends. Have fun!
             </Paragraph>
             <Button
                 mode="contained"
