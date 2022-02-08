@@ -44,5 +44,5 @@ You have 2 branches on this repo.
 * [Vazken Avetissian](https://github.com/vavetissian)
 * [Danielle Dominguez](https://github.com/danielledom)
 * [Lyric Nakagawa](https://github.com/Nakagawa808)
-* Dasani Thompson
-* Dylan Malaluan
+* [Dasani Thompson](https://github.com/dasanithompson)
+* [Dylan Malaluan](https://github.com/DMalaluan)
