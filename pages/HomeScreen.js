@@ -33,6 +33,31 @@ function Settings() {
     
   )
 }
+function Search() {
+  return (
+    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+      <Text>Search</Text>
+    </View>
+  )
+}
+
+function Messages() {
+  return (
+    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+      <Text>Messages</Text>
+    </View>
+
+  )
+}
+
+function Friends() {
+  return (
+    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+      <Text>Friends</Text>
+    </View>
+
+  )
+}
 
 function MyTabs() {
   return (
@@ -45,18 +70,33 @@ function MyTabs() {
               iconName = focused
                 ? 'ios-home'
                 : 'ios-home-outline';
+              
             } else if (route.name === 'Settings') {
-              iconName = focused ? 'settings' : 'settings-outline';
-            }
+            iconName = focused ? 'settings' : 'settings-outline';
+            } else if (route.name === 'Search') {
+            iconName = focused ? 'ios-search' : 'ios-search-outline';
+          } else if (route.name === 'Messages') {
+            iconName = focused ? 'ios-chatbox-ellipses' : 'ios-chatbox-ellipses-outline';
+          } else if (route.name === 'Friends') {
+            iconName = focused ? 'ios-people-sharp' : 'ios-people-outline';
+          }
 
             // You can return any component that you like here!
             return <Ionicons name={iconName} size={size} color={color} />;
           },
+          tabBarOptions: {
           tabBarActiveTintColor: theme.colors.primary,
           tabBarInactiveTintColor: 'gray',
+          showIcon: true,
+          }
+         
+          
         })}
     >
       <Tab.Screen name='Home' component={Homescreen} />
+      <Tab.Screen name='Friends' component={Friends} />
+      <Tab.Screen name='Search' component={Search} />
+       <Tab.Screen name='Messages' component={Messages} />
       <Tab.Screen name='Settings' component={Settings} />
     </Tab.Navigator>
   );
