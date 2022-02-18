@@ -18,7 +18,10 @@
     ],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "host.exp.exponent"
+      "bundleIdentifier": "host.exp.exponent",
+      "config": {
+        "googleMapsApiKey": "AIzaSyANaSWbMWkeASiw_8-MfWmSVnJVvcMq4hk"
+      }
     },
     "android": {
       "adaptiveIcon": {
