@@ -7,7 +7,7 @@ import { NavigationContainer } from '@react-navigation/native'
 import Button from '../components/Button'
 import { Ionicons } from "@expo/vector-icons"
 import { theme } from '../core/theme'
-
+import SearchScreen from './SearchScreen'
 const Stack = createStackNavigator()
 const Tab = createBottomTabNavigator()
 
@@ -35,13 +35,13 @@ function Homescreen({ navigation }) {
   )
 }
 
-function Search() {
-  return (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <Text>Search</Text>
-    </View>
-  )
-}
+// function Search() {
+//   return (
+//     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+//       <Text>Search</Text>
+//     </View>
+//   )
+// }
 
 function Messages() {
   return (
@@ -105,7 +105,14 @@ function MyTabs() {
     >
       <Tab.Screen name='Home' component={Homescreen} />
       <Tab.Screen name='Friends' component={Friends} />
-      <Tab.Screen name='Search' component={Search} />
+      <Tab.Screen name='Search' component={SearchScreen} options={({ navigation }) => {
+        return {
+          tabbarButton: () => (<TouchableOpacity onPress={() => navigation.navigate('SearchScreen')}>
+          </TouchableOpacity>),
+
+        };
+      }}
+      />
       <Tab.Screen name='Messages' component={Messages} />
       <Tab.Screen name='Settings' component={Settings} />
     </ Tab.Navigator >
