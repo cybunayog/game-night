@@ -4,6 +4,7 @@ import { StyleSheet, View, Text, SafeAreaView, ScrollView, TouchableOpacity } fr
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { createStackNavigator } from '@react-navigation/stack'
 import { NavigationContainer } from '@react-navigation/native'
+import { Calendar, CalendarList, Agenda } from 'react-native-calendars';
 import Button from '../components/Button'
 import { Ionicons } from "@expo/vector-icons"
 import { theme } from '../core/theme'
@@ -16,12 +17,11 @@ function Homescreen({ navigation }) {
   return (
     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
       <Text>Home</Text>
-      <Button
-        mode="outlined"
-        onPress={() => navigation.navigate('StartScreen')}
-      >
+      <Button mode="outlined"
+        onPress={() => navigation.navigate('StartScreen')}>
         GO BACK
       </Button>
+
       <SafeAreaView style={styles.container}>
         <ScrollView style={styles.scrollView}>
           <Text style={styles.text}>
@@ -30,7 +30,7 @@ function Homescreen({ navigation }) {
           </Text>
         </ScrollView>
       </SafeAreaView>
-    </View>
+    </View >
 
   )
 }
@@ -62,7 +62,6 @@ function Settings() {
 
   )
 }
-
 
 function Friends() {
   return (

@@ -28,12 +28,13 @@ import 'react-native-gesture-handler';
 //import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { theme } from './core/theme'
 import HomeScreen from './pages/HomeScreen'
+import SearchScreen from './pages/SearchScreen'
 import {
   StartScreen,
   LoginScreen,
   RegisterScreen,
   ResetPasswordScreen,
-  Dashboard,
+  Dashboard
 } from './pages'
 
 
@@ -60,6 +61,7 @@ export default function App() {
             component={ResetPasswordScreen}
           />
           <Stack.Screen name="HomeScreen" component={HomeScreen} />
+          <Stack.Screen name="SearchScreen" component={SearchScreen} />
         </Stack.Navigator>
       </NavigationContainer>
     </Provider>

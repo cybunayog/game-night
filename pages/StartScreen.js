@@ -29,7 +29,13 @@ export default function StartScreen({ navigation }) {
                 mode="outlined"
                 onPress={() => navigation.navigate('HomeScreen')}
             >
-               Home Test
+                Home Test
+            </Button>
+            <Button
+                mode="outlined"
+                onPress={() => navigation.navigate('SearchScreen')}
+            >
+                Search Test
             </Button>
         </Background>
     )
