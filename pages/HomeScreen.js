@@ -1,13 +1,13 @@
 
 import React from 'react'
-import { StyleSheet, View, Text, SafeAreaView, ScrollView } from 'react-native'
+import { StyleSheet, View, Text, SafeAreaView, ScrollView, TouchableOpacity } from 'react-native'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { createStackNavigator } from '@react-navigation/stack'
 import { NavigationContainer } from '@react-navigation/native'
 import Button from '../components/Button'
 import { Ionicons } from "@expo/vector-icons"
 import { theme } from '../core/theme'
-
+import SearchScreen from './SearchScreen'
 const Stack = createStackNavigator()
 const Tab = createBottomTabNavigator()
 
@@ -35,13 +35,16 @@ function Homescreen({ navigation }) {
   )
 }
 
-function Search() {
-  return (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <Text>Search</Text>
-    </View>
-  )
-}
+// function Search() {
+//   return (
+//     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+//      {/* <Text>Search</Text>
+//       <TouchableOpacity onPress={() => navigation.navigate('SearchScreen')}>
+//           <Text>Search</Text>
+//         </TouchableOpacity> */}
+//     </View>
+//   )
+// }
 
 function Messages() {
   return (
@@ -59,45 +62,21 @@ function Settings() {
 
   )
 }
-<<<<<<< HEAD
-function Search() {
-  return (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <Text>Search</Text>
-    </View>
-  )
-}
 
-function Messages() {
-  return (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <Text>Messages</Text>
-    </View>
 
-  )
-}
-
-=======
->>>>>>> fb6f50be1fac519bc3662e70fb4bdfd01abb76c6
 function Friends() {
   return (
     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
       <Text>Friends</Text>
     </View>
-<<<<<<< HEAD
 
   )
 }
-=======
->>>>>>> fb6f50be1fac519bc3662e70fb4bdfd01abb76c6
 
-  )
-}
 function MyTabs() {
   return (
     <Tab.Navigator
       screenOptions={({ route }) => ({
-<<<<<<< HEAD
           tabBarIcon: ({ focused, color, size }) => {
             let iconName;
 
@@ -130,43 +109,16 @@ function MyTabs() {
     >
       <Tab.Screen name='Home' component={Homescreen} />
       <Tab.Screen name='Friends' component={Friends} />
-      <Tab.Screen name='Search' component={Search} />
+      <Tab.Screen name='Search' 
+        component={SearchScreen} 
+        options={({navigation}) => {
+          return { 
+            tabbarButton: () => (<TouchableOpacity onPress={() => navigation.navigate('SearchScreen')}>
+            </TouchableOpacity>),
+
+          };
+        }}/>
        <Tab.Screen name='Messages' component={Messages} />
-=======
-        tabBarIcon: ({ focused, color, size }) => {
-          let iconName;
-
-          if (route.name === 'Home') {
-            iconName = focused
-              ? 'ios-home'
-              : 'ios-home-outline';
-          } else if (route.name === 'Search') {
-            iconName = focused ? 'search1' : 'search';
-          } else if (route.name === 'Settings') {
-            iconName = focused ? 'settings' : 'settings-outline';
-          } else if (route.name === 'Messages') {
-            iconName = focused ? 'messages' : '';
-          } else if (route.name === 'Friends') {
-            iconName = focused ? 'user-friends' : '';
-          }
-
-
-          // You can return any component that you like here!
-          return
-          <Ionicons name={iconName} size={size} color={color} />;
-        },
-        tabBarOptions: {
-          tabBarActiveTintColor: theme.colors.primary,
-          tabBarInactiveTintColor: 'gray',
-          showIcon: true,
-        }
-      })}
-    >
-      <Tab.Screen name='Home' component={Homescreen} />
-      <Tab.Screen name='Messages' component={Messages} />
-      <Tab.Screen name='Search' component={Search} />
-      <Tab.Screen name='Friends' component={Friends} />
->>>>>>> fb6f50be1fac519bc3662e70fb4bdfd01abb76c6
       <Tab.Screen name='Settings' component={Settings} />
     </ Tab.Navigator >
   );
