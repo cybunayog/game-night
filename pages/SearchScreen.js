@@ -1,26 +1,20 @@
-import * as React from 'react';
-import MapView from 'react-native-maps';
-import { StyleSheet, Text, View, Dimensions } from 'react-native';
-import { PROVIDER_GOOGLE } from "react-native-maps";
+import React from 'react'
+import Background from '../components/Background'
+import Logo from '../components/Logo'
+import Header from '../components/Header'
+import Button from '../components/Button'
+import Paragraph from '../components/Paragraph'
+import { Image, StyleSheet } from 'react-native'
 
-export default function SearchScreen() {
+export default function SearchScreen({ navigation }) {
     return (
-        <View style={styles.container}>
-            <MapView style={styles.map}
-                provider={PROVIDER_GOOGLE} />
-        </View>
-    );
+        <Image source={require('./assets/GameNight_App_Inverse.png')} style={styles.image} />
+    )
 }
-
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: '#fff',
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-    map: {
-        width: Dimensions.get('window').width,
-        height: Dimensions.get('window').height,
-    },
-});
+  image: {
+    width: 430,
+    height: 760,
+    marginBottom: 10,
+  },
+})

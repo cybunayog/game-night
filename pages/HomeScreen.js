@@ -1,6 +1,6 @@
 
 import React from 'react'
-import { StyleSheet, View, Text, SafeAreaView, ScrollView } from 'react-native'
+import { StyleSheet, View, Text, SafeAreaView, ScrollView, TouchableOpacity } from 'react-native'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { createStackNavigator } from '@react-navigation/stack'
 import { NavigationContainer } from '@react-navigation/native'
@@ -8,7 +8,7 @@ import { NavigationContainer } from '@react-navigation/native'
 import Button from '../components/Button'
 import { Ionicons } from "@expo/vector-icons"
 import { theme } from '../core/theme'
-
+import SearchScreen from './SearchScreen'
 const Stack = createStackNavigator()
 const Tab = createBottomTabNavigator()
 
@@ -35,13 +35,16 @@ function Homescreen({ navigation }) {
   )
 }
 
-function Search() {
-  return (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <Text>Search</Text>
-    </View>
-  )
-}
+// function Search() {
+//   return (
+//     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+//      {/* <Text>Search</Text>
+//       <TouchableOpacity onPress={() => navigation.navigate('SearchScreen')}>
+//           <Text>Search</Text>
+//         </TouchableOpacity> */}
+//     </View>
+//   )
+// }
 
 function Messages() {
   return (
@@ -73,17 +76,17 @@ function MyTabs() {
   return (
     <Tab.Navigator
       screenOptions={({ route }) => ({
-        tabBarIcon: ({ focused, color, size }) => {
-          let iconName;
+          tabBarIcon: ({ focused, color, size }) => {
+            let iconName;
 
-          if (route.name === 'Home') {
-            iconName = focused
-              ? 'ios-home'
-              : 'ios-home-outline';
-
-          } else if (route.name === 'Settings') {
+            if (route.name === 'Home') {
+              iconName = focused
+                ? 'ios-home'
+                : 'ios-home-outline';
+              
+            } else if (route.name === 'Settings') {
             iconName = focused ? 'settings' : 'settings-outline';
-          } else if (route.name === 'Search') {
+            } else if (route.name === 'Search') {
             iconName = focused ? 'ios-search' : 'ios-search-outline';
           } else if (route.name === 'Messages') {
             iconName = focused ? 'ios-chatbox-ellipses' : 'ios-chatbox-ellipses-outline';
@@ -91,22 +94,30 @@ function MyTabs() {
             iconName = focused ? 'ios-people-sharp' : 'ios-people-outline';
           }
 
-          // You can return any component that you like here!
-          return <Ionicons name={iconName} size={size} color={color} />;
-        },
-        tabBarOptions: {
+            // You can return any component that you like here!
+            return <Ionicons name={iconName} size={size} color={color} />;
+          },
+          tabBarOptions: {
           tabBarActiveTintColor: theme.colors.primary,
           tabBarInactiveTintColor: 'gray',
           showIcon: true,
-        }
-
-
-      })}
+          }
+         
+          
+        })}
     >
       <Tab.Screen name='Home' component={Homescreen} />
       <Tab.Screen name='Friends' component={Friends} />
-      <Tab.Screen name='Search' component={Search} />
-      <Tab.Screen name='Messages' component={Messages} />
+      <Tab.Screen name='Search' 
+        component={SearchScreen} 
+        options={({navigation}) => {
+          return { 
+            tabbarButton: () => (<TouchableOpacity onPress={() => navigation.navigate('SearchScreen')}>
+            </TouchableOpacity>),
+
+          };
+        }}/>
+       <Tab.Screen name='Messages' component={Messages} />
       <Tab.Screen name='Settings' component={Settings} />
     </ Tab.Navigator >
   );
