@@ -4,7 +4,7 @@ import { StyleSheet, View, Text, SafeAreaView, ScrollView } from 'react-native'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { createStackNavigator } from '@react-navigation/stack'
 import { NavigationContainer } from '@react-navigation/native'
-import { Calendar, CalendarList, Agenda } from 'react-native-calendars';
+//import { Calendar, CalendarList, Agenda } from 'react-native-calendars';
 import Button from '../components/Button'
 import { Ionicons } from "@expo/vector-icons"
 import { theme } from '../core/theme'

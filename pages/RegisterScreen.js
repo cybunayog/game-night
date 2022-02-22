@@ -13,26 +13,50 @@ import { theme } from '../core/theme'
 import { emailValidator } from '../helpers/emailValidator'
 import { passwordValidator } from '../helpers/passwordValidator'
 import { nameValidator } from '../helpers/nameValidator'
-import { State } from 'react-native-gesture-handler'
+//import { State } from 'react-native-gesture-handler'
 
 export default function CreateAccount({ navigation }) {
-  const [username, setName] = useState({ value: '', error: '' })
-  const [email, setEmail] = useState({ value: '', error: '' })
-  const [password, setPassword] = useState({ value: '', error: '' })
-  const [city, setCity] = useState({ value: '', error: '' })
-  const [state, setState] = useState({ value: '', error: '' })
-  const [game, setGame] = useState({ value: '', error: '' })
+  const [username, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
+  const [password, setPassword] = useState('');
+  const [city, setCity] = useState('');
+  const [state, setState] = useState('');
+  const [favGame, setFavGame] = useState('');
+  /*
+    //POST request using fetch with set headers
+    const requestOptions = {
+      method: 'POST',
+      body: JSON.stringify({ username, email, password, city, state, favGame: game })
+    };
+    fetch('http://178.128.150.93:3000/signup', requestOptions)
+      .then(response => response.json())
+      .then(data => navigation.replace('LoginScreen')).catch((err) => {
+        console.error(err);
+      });
+  */
 
-  // POST request using fetch with set headers
-  // const requestOptions = {
-  //   method: 'POST',
-  //   body: JSON.stringify({ username: name, email, password, city, state, favGame: game })
-  // };
-  // fetch('http://178.128.150.93:3000/signup', requestOptions)
-  //   .then(response => response.json())
-  //   .then(data => navigation.replace('LoginScreen'));
 
-  const signin = async (username, email, password, city, favGame) => {
+
+  const signin = async (username, password) => {
+    axios.post('http://178.128.150.93:3000/signin', {
+      username,
+      password,
+    }).then(res => {
+      //res.data.token ?
+      const { data } = res;
+      console.log(res.data);
+
+      if (data) navigation.navigate('HomeScreen');
+    })
+      .catch(e => {
+        console.log(e.message);
+      });
+  }
+  /**
+   * sign up
+   */
+  const signup = async (username, email, password, city, favGame) => {
     axios.post('http://178.128.150.93:3000/signup', {
       username,
       email,
@@ -42,25 +66,28 @@ export default function CreateAccount({ navigation }) {
       favGame
     }).then(res => {
       //res.data.token ?
-      navigation.replace('LoginScreen');
-    });
+      const { data } = res;
+      console.log(data);
+    })
+      .catch(e => {
+        console.log(e.message);
+      });
   }
 
   const onSignUpPressed = () => {
-    const nameError = nameValidator(name.value)
-    const emailError = emailValidator(email.value)
-    const passwordError = passwordValidator(password.value)
+    const nameError = nameValidator(username);
+    const emailError = emailValidator(email);
+    const passwordError = passwordValidator(password);
 
-    if (emailError || passwordError || nameError) {
-      setName({ ...name, error: nameError })
-      setEmail({ ...email, error: emailError })
-      setPassword({ ...password, error: passwordError })
-      return
+    if (emailError) {
+      setErrorMessage(emailError);
+    } else if (nameError) {
+      setErrorMessage(nameError);
+    } else if (passwordError) {
+      setErrorMessage(passwordError);
     }
-    navigation.reset({
-      index: 0,
-      routes: [{ name: 'HomeScreen' }],
-    })
+
+    navigation.reset({ index: 0, routes: [{ name: 'LoginScreen' }], });
   }
 
   return (
@@ -70,20 +97,20 @@ export default function CreateAccount({ navigation }) {
         <Logo />
         <Header>Create Account</Header>
         <TextInput
-          label="Name"
+          label="Username"
           returnKeyType="next"
-          value={username.value}
-          onChangeText={(text) => setName({ value: text, error: '' })}
-          error={!!username.error}
-          errorText={username.error}
+          value={username}
+          onChangeText={(text) => setName(text)}
+          error={!!errorMessage}
+          errorText={errorMessage}
         />
         <TextInput
           label="Email"
           returnKeyType="next"
-          value={email.value}
-          onChangeText={(text) => setEmail({ value: text, error: '' })}
-          error={!!email.error}
-          errorText={email.error}
+          value={email}
+          onChangeText={(text) => setEmail(text)}
+          error={!!errorMessage}
+          errorText={errorMessage}
           autoCapitalize="none"
           autoCompleteType="email"
           textContentType="emailAddress"
@@ -92,42 +119,42 @@ export default function CreateAccount({ navigation }) {
         <TextInput
           label="Password"
           returnKeyType="done"
-          value={password.value}
-          onChangeText={(text) => setPassword({ value: text, error: '' })}
-          error={!!password.error}
-          errorText={password.error}
+          value={password}
+          onChangeText={(text) => setPassword(text)}
+          error={!!errorMessage}
+          errorText={errorMessage}
           secureTextEntry
         />
         <TextInput
           label="City"
           returnKeyType="next"
-          value={city.value}
-          onChangeText={(text) => setCity({ value: text, error: '' })}
-          error={!!city.error}
-          errorText={city.error}
+          value={city}
+          onChangeText={(text) => setCity(text)}
+          error={!!errorMessage}
+          errorText={errorMessage}
 
         />
         <TextInput
           label="State"
           returnKeyType="next"
-          value={state.value}
-          onChangeText={(text) => setState({ value: text, error: '' })}
-          error={!!state.error}
-          errorText={state.error}
+          value={state}
+          onChangeText={(text) => setState(text)}
+          error={!!errorMessage}
+          errorText={errorMessage}
 
         />
         <TextInput
           label="Favorite Game"
           returnKeyType="next"
-          value={game.value}
-          onChangeText={(text) => setGame({ value: text, error: '' })}
-          error={!!game.error}
-          errorText={game.error}
+          value={favGame}
+          onChangeText={(text) => setFavGame(text)}
+          error={!!errorMessage}
+          errorText={errorMessage}
 
         />
         <Button
           mode="contained"
-          onPress={onSignUpPressed}
+          onPress={() => signup(username, email, password, city, favGame)}
           style={{ marginTop: 24 }}
         >
           Sign Up
