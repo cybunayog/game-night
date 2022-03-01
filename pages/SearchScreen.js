@@ -61,10 +61,16 @@ export default function SearchScreen({ navigation }) {
                     latitude: 34.1280,
                     longitude: -117.8496,
                 }}
-                description={"Life"}
             >
 
-                <Image source={require('./assets/gameNight_marker.png')} style={{ height: 70, width: 70 }} />
+                <MapView.Callout>
+                    <View style={{ height: 80, width: 200 }}>
+                        <Text> Life </Text>
+                        <Text> Joe's Card Shop, Foothill Ave.</Text>
+                        <Text> Host: Dylan Malaluan</Text>
+                        <Text> March 10, 2022 </Text>
+                    </View>
+                </MapView.Callout>                <Image source={require('./assets/gameNight_marker.png')} style={{ height: 70, width: 70 }} />
             </Marker>
             {/* <Picker>
                 <Picker.Item label="Monopoly" value="monopoly" />
@@ -113,4 +119,5 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         textAlign: 'center',
     }
+
 })
