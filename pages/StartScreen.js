@@ -31,12 +31,14 @@ export default function StartScreen({ navigation }) {
             >
                 Home Test
             </Button>
+            {/*             
             <Button
                 mode="outlined"
                 onPress={() => navigation.navigate('SearchScreen')}
             >
                 Search Test
-            </Button>
+            </Button> */}
+
         </Background>
     )
 }
