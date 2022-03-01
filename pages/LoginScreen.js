@@ -19,10 +19,9 @@ const login = async (username, password) => {
         username,
         password,
     }).then(res => {
+        //res.data.token ?
         const { data } = res;
-        console.log(res.data);
-
-        if (data) navigation.navigate('HomeScreen');
+        console.log(data);
     })
         .catch(e => {
             console.log(e.message);
@@ -49,6 +48,9 @@ export default function StartScreen({ navigation }) {
         })
         */
         login(username, password).then(() => navigation.navigate('HomeScreen'))
+            .catch(e => {
+                console.log(e.message);
+            });
     }
 
     return (
