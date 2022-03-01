@@ -46,14 +46,6 @@ export default function SearchScreen({ navigation }) {
                 }}
             //  description={"Monopoly"}
             >
-                <MapView.Callout>
-                    <View style={{ height: 80, width: 200 }}>
-                        <Text styles={styles.paragraph}> Monopoly </Text>
-                        <Text> StarBucks, Foothill Ave.</Text>
-                        <Text> Host: Danielle Dominguez</Text>
-                        <Text> March 14, 2022 </Text>
-                    </View>
-                </MapView.Callout>
                 <Image source={require('./assets/gameNight_marker.png')} style={{ height: 70, width: 70 }} />
             </Marker>
             <Marker
