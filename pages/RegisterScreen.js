@@ -23,27 +23,13 @@ export default function CreateAccount({ navigation }) {
   const [city, setCity] = useState('');
   const [state, setState] = useState('');
   const [favGame, setFavGame] = useState('');
-  /*
-    //POST request using fetch with set headers
-    const requestOptions = {
-      method: 'POST',
-      body: JSON.stringify({ username, email, password, city, state, favGame: game })
-    };
-    fetch('http://178.128.150.93:3000/signup', requestOptions)
-      .then(response => response.json())
-      .then(data => navigation.replace('LoginScreen')).catch((err) => {
-        console.error(err);
-      });
-  */
 
 
-
-  const signin = async (username, password) => {
+  const signin = async (email, password) => {
     axios.post('http://178.128.150.93:3000/signin', {
-      username,
+      email,
       password,
     }).then(res => {
-      //res.data.token ?
       const { data } = res;
       console.log(res.data);
 

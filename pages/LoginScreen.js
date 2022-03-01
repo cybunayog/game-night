@@ -1,73 +1,54 @@
-// import React from 'react';
-// import { ScrollView, StyleSheet } from 'react-native';
-// import { Button, Card } from 'react-native-paper';
-// import { DefaultTheme } from 'react-native-paper';
-// import LoginScreen from "react-native-login-screen";
-
-
-// function Login ({ navigation })  {
-//     return (
-//         <ScrollView style={styles.scrollView}>
-//     <LoginScreen
-//       onLoginPress={() => {}}
-//       onEmailChange={(email: string) => {}}
-//       onPasswordChange={(password: string) => {}}
-// />
-//       <Card style={styles.card}>
-//         <Card.Title title="Navigate to 'CreateAccount' Screen" />
-//         <Card.Content>
-//           <Button mode="contained" onPress={() => navigation.navigate('CreateAccount')}>
-//             Navigate
-//           </Button>
-//         </Card.Content>
-//       </Card>
-//     </ScrollView>
-//     )
-// }
-
-
-// const styles = StyleSheet.create({
-//   scrollView: {
-//     backgroundColor: DefaultTheme.colors.background,
-//     paddingTop: 10
-//   },
-//   card: {
-//     width: '90%',
-//     marginLeft: 'auto',
-//     marginRight: 'auto'
-//   }
-// });
 
 // export default Login
 import React, { useState } from 'react'
 import { TouchableOpacity, StyleSheet, View } from 'react-native'
 import { Text } from 'react-native-paper'
 import Background from '../components/Background'
+import axios from 'axios';
 import Logo from '../components/Logo'
 import Header from '../components/Header'
 import Button from '../components/Button'
 import TextInput from '../components/TextInput'
 import BackButton from '../components/BackButton'
 import { theme } from '../core/theme'
-import { emailValidator } from '../helpers/emailValidator'
+import { nameValidator } from '../helpers/nameValidator'
 import { passwordValidator } from '../helpers/passwordValidator'
 
+const login = async (username, password) => {
+    axios.post('http://178.128.150.93:3000/login', {
+        username,
+        password,
+    }).then(res => {
+        const { data } = res;
+        console.log(res.data);
+
+        if (data) navigation.navigate('HomeScreen');
+    })
+        .catch(e => {
+            console.log(e.message);
+        });
+}
+
 export default function StartScreen({ navigation }) {
-    const [email, setEmail] = useState({ value: '', error: '' })
+    const [username, setName] = useState('');
     const [password, setPassword] = useState({ value: '', error: '' })
+    const [errorMessage, setErrorMessage] = useState('');
 
     const onLoginPressed = () => {
-        const emailError = emailValidator(email.value)
+        const nameError = nameValidator(String(username.value))
         const passwordError = passwordValidator(password.value)
-        if (emailError || passwordError) {
-            setEmail({ ...email, error: emailError })
+        if (nameError || passwordError) {
+            setName({ ...username, error: nameError })
             setPassword({ ...password, error: passwordError })
             return
         }
+        /*
         navigation.reset({
             index: 0,
             routes: [{ name: 'HomeScreen' }],
         })
+        */
+        login(username, password).then(() => navigation.navigate('HomeScreen'))
     }
 
     return (
@@ -76,16 +57,12 @@ export default function StartScreen({ navigation }) {
             <Logo />
             <Header>Welcome back.</Header>
             <TextInput
-                label="Email"
+                label="Username"
                 returnKeyType="next"
-                value={email.value}
-                onChangeText={(text) => setEmail({ value: text, error: '' })}
-                error={!!email.error}
-                errorText={email.error}
-                autoCapitalize="none"
-                autoCompleteType="email"
-                textContentType="emailAddress"
-                keyboardType="email-address"
+                value={username}
+                onChangeText={(text) => setName(text)}
+                error={!!errorMessage}
+                errorText={errorMessage}
             />
             <TextInput
                 label="Password"
