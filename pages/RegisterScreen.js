@@ -154,9 +154,10 @@ export default function CreateAccount({ navigation }) {
         />
         <Button
           mode="contained"
-          onPress={() => signup(username, email, password, city, favGame)}
+          onPress={() => signup(username, email, password, city, favGame).then(() => navigation.navigate('HomeScreen'))}
           style={{ marginTop: 24 }}
         >
+
           Sign Up
         </Button>
         <View style={styles.row}>
