@@ -1,22 +1,125 @@
 
-import React from 'react'
-import { StyleSheet, View, Text, SafeAreaView, ScrollView, TouchableOpacity } from 'react-native'
+import React, { useState } from 'react'
+import { StyleSheet, View, Text, SafeAreaView, ScrollView, Modal, TouchableOpacity } from 'react-native'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { createStackNavigator } from '@react-navigation/stack'
 import { NavigationContainer } from '@react-navigation/native'
-//import { Calendar, CalendarList, Agenda } from 'react-native-calendars';
+import { Agenda } from 'react-native-calendars';
 import Button from '../components/Button'
+import FlatButton from '../components/CreateEventButton'
 import { Ionicons } from "@expo/vector-icons"
 import { theme } from '../core/theme'
 import SearchScreen from './SearchScreen'
+import Schedule from './Agenda'
+import TextInput from '../components/TextInput'
+//import FloatingTitleTextInput from "react-native-floating-title-text-input"
+//import { TouchableOpacity } from 'react-native-gesture-handler'
+import { MaterialIcons } from '@expo/vector-icons'
+// import Modal from "react-native-modal";
+
 const Stack = createStackNavigator()
 const Tab = createBottomTabNavigator()
 
 
 function Homescreen({ navigation }) {
+  const [modalOpen, setModalOpen] = useState(false);
+
   return (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <Text>Home</Text>
+    <View style={{ flex: 2, justifyContent: 'center', alignItems: 'center' }}>
+
+      <Modal visible={modalOpen} animationType='slide'>
+        <View style={StyleSheet.modalContent}>
+          <MaterialIcons
+            name='close'
+            // justifyContent: "felx-start"
+            size={24}
+            style={styles.modalToggle}
+            onPress={() => setModalOpen(false)}
+          />
+          <TextInput
+            eventName="Event Name"
+            placeholder="Name of Event"
+          />
+          <TextInput
+            eventHostname="Host Name"
+            placeholder="Host Name"
+          />
+          <TextInput
+            eventDescription="eventDescription"
+            placeholder="Special Host Notes"
+          />
+          <TextInput
+            eventGame="game"
+            placeholder="Which Game?"
+          />
+          <TextInput
+            eventAddress="address"
+            placeholder="Address of Event"
+          />
+          <TextInput
+            eventTime="month day year time"
+            placeholder="Time of Event"
+          />
+
+          <Button
+            mode="contained"
+            onPress={() => setModalOpen(false)}>
+            CREATE
+          </Button>
+
+
+          {/* if (!eventName.trim()) {
+              alert('Please enter Event Name');
+              return;
+            }
+            if (!eventHostname.trim()) {
+              alert('Please Enter Host Name');
+              return;
+            }
+            if (!eventGame.trim()) {
+              alert('Please Enter Game');
+              return;
+            }
+            if (!eventAddress.trim()) {
+              alert('Please Enter Event Address');
+              return;
+            }
+            if (!eventTime.trim()) {
+              alert('Please Enter Time');
+              return;
+            }
+            alert('Success');
+          }; */}
+        </View>
+      </Modal>
+
+
+      {/* <MaterialIcons
+        name='add'
+        size={24}
+        onPress={() => setModalOpen(true)}
+      /> */}
+
+
+
+      {/* <FlatButton
+      //   //name='add'
+      //   //size={24}
+      //   onPress={() => setModalOpen(true)}
+      // /> */}
+
+
+
+
+      <Button
+        mode="outlined"
+        //style={styles.flatButton}
+        onPress={() => setModalOpen(true)}>
+        Create Event
+      </Button>
+
+      <Schedule />
+
       <Button mode="outlined"
         onPress={() => navigation.navigate('StartScreen')}>
         GO BACK
@@ -25,8 +128,7 @@ function Homescreen({ navigation }) {
       <SafeAreaView style={styles.container}>
         <ScrollView style={styles.scrollView}>
           <Text style={styles.text}>
-
-
+            <Stack.Screen name="HomeScreen" component={Agenda} />
           </Text>
         </ScrollView>
       </SafeAreaView>
@@ -35,13 +137,15 @@ function Homescreen({ navigation }) {
   )
 }
 
-// function Search() {
-//   return (
-//     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-//       <Text>Search</Text>
-//     </View>
-//   )
-// }
+
+
+function Search() {
+  return (
+    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+      <Text>Search</Text>
+    </View>
+  )
+}
 
 function Messages() {
   return (
@@ -138,7 +242,32 @@ const styles = StyleSheet.create({
     color: '#101010',
     fontSize: 24,
     fontWeight: 'bold'
+  },
+  modalToggle: {
+    // position: 'absolute',
+    // right: 5,
+    marginBottom: 10,
+    marginTop: 50,
+    borderWidth: 1,
+    borderColor: 'white',
+    padding: 10,
+    borderRadius: 10,
+    alignSelf: 'center',
+  },
+  flatButton: {
+    marginBottom: 10,
+    position: 'absolute',
+    bottom: 100,
+    left: 0,
+    marginTop: 50,
+    flex: 1,
+    // alignItems: 'center',
+    //borderWidth: 1,
+    //borderColor: 'white',
+    //padding: 20,
+    borderRadius: 15,
+    //alignSelf: 'center',
+
   }
 })
-
 //export default HomeScreen
