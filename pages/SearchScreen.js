@@ -57,7 +57,10 @@ export default function SearchScreen({ navigation }) {
 
                 <Image source={require('./assets/gameNight_marker.png')} style={{ height: 70, width: 70 }} />
             </Marker>
-            {/* <Picker>
+            {<Picker
+                style={{ height: 100, width: 250 }}
+                itemStyle={{ backgroundColor: "white", color: "black", fontFamily: "Arial", fontSize: 17 }}
+            >
                 <Picker.Item label="Monopoly" value="monopoly" />
                 <Picker.Item label="Clue" value="clue" />
                 <Picker.Item label="Life" value="life" />
@@ -70,9 +73,11 @@ export default function SearchScreen({ navigation }) {
                 <Picker.Item label="Pandemic" value="pandemic" />
                 <Picker.Item label="Risk" value="risk" />
                 <Picker.Item label="Other" value="other" />
-            </Picker> */}
+            </Picker>}
 
-            {/* <Picker>
+            {<Picker
+                style={{ height: 200, width: 600 }}
+                itemStyle={{ backgroundColor: "white", color: "black", fontFamily: "Arial", fontSize: 17 }}>
                 <Picker.Item label="5 mi" value="5 mi" />
                 <Picker.Item label="10 mi" value="10 mi" />
                 <Picker.Item label="15 mi" value="15 mi" />
@@ -83,7 +88,7 @@ export default function SearchScreen({ navigation }) {
                 <Picker.Item label="40 mi" value="40 mi" />
                 <Picker.Item label="45 mi" value="45 mi" />
                 <Picker.Item label="50 mi" value="50 mi" />
-            </Picker> */}
+            </Picker>}
         </MapView >
 
     )

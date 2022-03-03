@@ -4,12 +4,13 @@ import { StyleSheet, View, Text, SafeAreaView, ScrollView, Modal, TouchableOpaci
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { createStackNavigator } from '@react-navigation/stack'
 import { NavigationContainer } from '@react-navigation/native'
-import { Agenda } from 'react-native-calendars';
+import { Agenda } from 'react-native-calendars'
 import Button from '../components/Button'
 import FlatButton from '../components/CreateEventButton'
 import { Ionicons } from "@expo/vector-icons"
 import { theme } from '../core/theme'
 import SearchScreen from './SearchScreen'
+import Settings from './SettingsScreen'
 import Schedule from './Agenda'
 import TextInput from '../components/TextInput'
 //import FloatingTitleTextInput from "react-native-floating-title-text-input"
@@ -155,14 +156,14 @@ function Messages() {
 
   )
 }
-function Settings() {
-  return (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <Text>Settings</Text>
-    </View>
+// function Settings() {
+//   return (
+//     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+//       <Text>Settings</Text>
+//     </View>
 
-  )
-}
+//   )
+// }
 
 function Friends() {
   return (
@@ -218,7 +219,14 @@ function MyTabs() {
       }}
       />
       <Tab.Screen name='Messages' component={Messages} />
-      <Tab.Screen name='Settings' component={Settings} />
+      <Tab.Screen name='Settings' component={Settings} options={({ navigation }) => {
+        return {
+          tabbarButton: () => (<TouchableOpacity onPress={() => navigation.navigate('SettingsScreen')}>
+          </TouchableOpacity>),
+
+        };
+      }}
+      />
     </ Tab.Navigator >
   );
 }
