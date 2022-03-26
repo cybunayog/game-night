@@ -14,14 +14,24 @@ import { theme } from '../core/theme'
 import { nameValidator } from '../helpers/nameValidator'
 import { passwordValidator } from '../helpers/passwordValidator'
 
+
+/**
+ * Login
+ * 
+ * @param username
+ * @param password
+ * 
+ * @return Object
+ */
 const login = async (username, password) => {
     axios.post('http://178.128.150.93:3000/login', {
         username,
-        password,
+        password
     }).then(res => {
         //res.data.token ?
         const { data } = res;
-        console.log(data);
+        console.log(res.data);
+        if (data) navigation.navigate('HomeScreen');
     })
         .catch(e => {
             console.log(e.message);

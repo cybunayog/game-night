@@ -23,39 +23,19 @@ export default function CreateAccount({ navigation }) {
   const [city, setCity] = useState('');
   const [state, setState] = useState('');
   const [favGame, setFavGame] = useState('');
-  /*
-    //POST request using fetch with set headers
-    const requestOptions = {
-      method: 'POST',
-      body: JSON.stringify({ username, email, password, city, state, favGame: game })
-    };
-    fetch('http://178.128.150.93:3000/signup', requestOptions)
-      .then(response => response.json())
-      .then(data => navigation.replace('LoginScreen')).catch((err) => {
-        console.error(err);
-      });
-  */
 
-
-
-  const signin = async (username, password) => {
-    axios.post('http://178.128.150.93:3000/signin', {
-      username,
-      password,
-    }).then(res => {
-      //res.data.token ?
-      const { data } = res;
-      console.log(res.data);
-
-      if (data) navigation.navigate('HomeScreen');
-    })
-      .catch(e => {
-        console.log(e.message);
-      });
-  }
   /**
-   * sign up
-   */
+ * Login
+ * 
+ * @param username
+ * @param email
+ * @param password 
+ * @param city 
+ * @param favGame
+ * @return Object
+ */
+
+
   const signup = async (username, email, password, city, favGame) => {
     axios.post('http://178.128.150.93:3000/signup', {
       username,
@@ -73,6 +53,7 @@ export default function CreateAccount({ navigation }) {
         console.log(e.message);
       });
   }
+
 
   const onSignUpPressed = () => {
     const nameError = nameValidator(username);
