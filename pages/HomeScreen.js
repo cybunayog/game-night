@@ -10,6 +10,7 @@ import FlatButton from '../components/CreateEventButton'
 import { Ionicons } from "@expo/vector-icons"
 import { theme } from '../core/theme'
 import SearchScreen from './SearchScreen'
+import FriendsScreen from './FriendsScreen'
 import Settings from './SettingsScreen'
 import Schedule from './Agenda'
 import TextInput from '../components/TextInput'
@@ -165,14 +166,14 @@ function Messages() {
 //   )
 // }
 
-function Friends() {
-  return (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <Text>Friends</Text>
-    </View>
+// function Friends() {
+//   return (
+//     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+//       <Text>Friends</Text>
+//     </View>
 
-  )
-}
+//   )
+// }
 
 function MyTabs() {
   return (
@@ -190,8 +191,6 @@ function MyTabs() {
             iconName = focused ? 'settings' : 'settings-outline';
           } else if (route.name === 'Search') {
             iconName = focused ? 'ios-search' : 'ios-search-outline';
-          } else if (route.name === 'Messages') {
-            iconName = focused ? 'ios-chatbox-ellipses' : 'ios-chatbox-ellipses-outline';
           } else if (route.name === 'Friends') {
             iconName = focused ? 'ios-people-sharp' : 'ios-people-outline';
           }
@@ -209,7 +208,6 @@ function MyTabs() {
       })}
     >
       <Tab.Screen name='Home' component={Homescreen} />
-      <Tab.Screen name='Friends' component={Friends} />
       <Tab.Screen name='Search' component={SearchScreen} options={({ navigation }) => {
         return {
           tabbarButton: () => (<TouchableOpacity onPress={() => navigation.navigate('SearchScreen')}>
@@ -218,7 +216,15 @@ function MyTabs() {
         };
       }}
       />
-      <Tab.Screen name='Messages' component={Messages} />
+      <Tab.Screen name='Friends' component={FriendsScreen} options={({ navigation }) => {
+        return {
+          tabbarButton: () => (<TouchableOpacity onPress={() => navigation.navigate('FriendsScreen')}>
+          </TouchableOpacity>),
+
+        };
+      }}
+      />
+      {/*<Tab.Screen name='Messages' component={Messages} />*/}
       <Tab.Screen name='Settings' component={Settings} options={({ navigation }) => {
         return {
           tabbarButton: () => (<TouchableOpacity onPress={() => navigation.navigate('SettingsScreen')}>

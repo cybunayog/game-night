@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react'
-import { ScrollView, View, StyleSheet, TouchableOpacity } from 'react-native'
+import { ScrollView, View, StyleSheet, TouchableOpacity, Alert } from 'react-native'
 import { Text } from 'react-native-paper'
 import axios from 'axios';
 import Background from '../components/Background'
@@ -45,32 +45,43 @@ export default function CreateAccount({ navigation }) {
       state,
       favGame
     }).then(res => {
-      //res.data.token ?
       const { data } = res;
       console.log(data);
+      if (res.data.user !== undefined && res.data.user.username === username) {
+        console.log('User authenticated');
+        //AsyncStorage.setItem('@auth', res.data.user);
+        navigation.navigate('HomeScreen');
+        // USE ASYNCSTORAGE
+      } else {
+        // Put alert to enter a user or password
+        alert("ERROR: Please Enter Correct Information")
+        // Navigate back to Auth screen
+        navigation.navigate('RegisterScreen');
+      }
     })
       .catch(e => {
+        alert("ERROR: Please Enter Correct Information")
         console.log(e.message);
       });
   }
 
-
-  const onSignUpPressed = () => {
-    const nameError = nameValidator(username);
-    const emailError = emailValidator(email);
-    const passwordError = passwordValidator(password);
-
-    if (emailError) {
-      setErrorMessage(emailError);
-    } else if (nameError) {
-      setErrorMessage(nameError);
-    } else if (passwordError) {
-      setErrorMessage(passwordError);
+  /*
+    const onSignUpPressed = () => {
+      const nameError = nameValidator(username);
+      const emailError = emailValidator(email);
+      const passwordError = passwordValidator(password);
+  
+      if (emailError) {
+        setErrorMessage(emailError);
+      } else if (nameError) {
+        setErrorMessage(nameError);
+      } else if (passwordError) {
+        setErrorMessage(passwordError);
+      }
+  
+      navigation.reset({ index: 0, routes: [{ name: 'LoginScreen' }], });
     }
-
-    navigation.reset({ index: 0, routes: [{ name: 'LoginScreen' }], });
-  }
-
+  */
   return (
     <ScrollView>
       <Background>
@@ -135,10 +146,9 @@ export default function CreateAccount({ navigation }) {
         />
         <Button
           mode="contained"
-          onPress={() => signup(username, email, password, city, favGame).then(() => navigation.navigate('HomeScreen'))}
+          onPress={() => signup(username, email, password, city, favGame)}
           style={{ marginTop: 24 }}
         >
-
           Sign Up
         </Button>
         <View style={styles.row}>

@@ -15,7 +15,12 @@ import { nameValidator } from '../helpers/nameValidator'
 import { passwordValidator } from '../helpers/passwordValidator'
 
 
-/**
+export default function StartScreen({ navigation }) {
+    const [username, setName] = useState('');
+    const [password, setPassword] = useState({ value: '', error: '' })
+    const [errorMessage, setErrorMessage] = useState('');
+
+    /**
  * Login
  * 
  * @param username
@@ -23,46 +28,44 @@ import { passwordValidator } from '../helpers/passwordValidator'
  * 
  * @return Object
  */
-const login = async (username, password) => {
-    axios.post('http://178.128.150.93:3000/login', {
-        username,
-        password
-    }).then(res => {
-        //res.data.token ?
-        const { data } = res;
-        console.log(res.data);
-        if (data) navigation.navigate('HomeScreen');
-    })
-        .catch(e => {
-            console.log(e.message);
-        });
-}
 
-export default function StartScreen({ navigation }) {
-    const [username, setName] = useState('');
-    const [password, setPassword] = useState({ value: '', error: '' })
-    const [errorMessage, setErrorMessage] = useState('');
-
-    const onLoginPressed = () => {
-        const nameError = nameValidator(String(username.value))
-        const passwordError = passwordValidator(password.value)
-        if (nameError || passwordError) {
-            setName({ ...username, error: nameError })
-            setPassword({ ...password, error: passwordError })
-            return
-        }
-        /*
-        navigation.reset({
-            index: 0,
-            routes: [{ name: 'HomeScreen' }],
+    const login = async (username, password) => {
+        axios.post('http://178.128.150.93:3000/login', {
+            username,
+            password
+        }).then(res => {
+            //res.data.token ?
+            const { data } = res;
+            console.log(res.data);
+            if (data) navigation.navigate('HomeScreen');
         })
-        */
-        login(username, password).then(() => navigation.navigate('HomeScreen'))
             .catch(e => {
                 console.log(e.message);
             });
     }
+    /*
+const onLoginPressed = () => {
+    const nameError = nameValidator(String(username.value))
+    const passwordError = passwordValidator(password.value)
+    if (nameError || passwordError) {
+        setName({ ...username, error: nameError })
+        setPassword({ ...password, error: passwordError })
+        return
+    }
 
+    navigation.reset({
+        index: 0,
+        routes: [{ name: 'HomeScreen' }],
+    })
+    
+    login(username, password).then(() => navigation.navigate('HomeScreen'))
+        .catch(e => {
+            console.log(e.message);
+        });
+ 
+
+}
+       */
     return (
         <Background>
             <BackButton goBack={navigation.goBack} />
@@ -92,7 +95,11 @@ export default function StartScreen({ navigation }) {
                     <Text style={styles.forgot}>Forgot your password?</Text>
                 </TouchableOpacity>
             </View>
-            <Button mode="contained" onPress={onLoginPressed}>
+            <Button
+                mode="contained"
+                onPress={() => login(username, password).then(() => navigation.navigate('HomeScreen'))}
+                style={{ marginTop: 24 }}
+            >
                 Login
             </Button>
             <View style={styles.row}>
