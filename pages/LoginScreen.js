@@ -13,6 +13,7 @@ import BackButton from '../components/BackButton'
 import { theme } from '../core/theme'
 import { nameValidator } from '../helpers/nameValidator'
 import { passwordValidator } from '../helpers/passwordValidator'
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 export default function StartScreen({ navigation }) {
@@ -34,38 +35,74 @@ export default function StartScreen({ navigation }) {
             username,
             password
         }).then(res => {
-            //res.data.token ?
             const { data } = res;
-            console.log(res.data);
-            if (data) navigation.navigate('HomeScreen');
+            console.log(data);
+            if (res.data !== undefined) {
+                console.log('User authenticated');
+                // Using ASYNCSTORAGE to hold onto data throughout app use
+                storeData(res.data);
+                console.log(res.data);
+                navigation.navigate('HomeScreen');
+            } else {
+                // Put alert to enter a user or password
+                alert("ERROR: Please Enter Correct Information")
+                // Navigate back to Auth screen
+                navigation.navigate('LoginScreen');
+            }
         })
             .catch(e => {
+                alert("ERROR: Please Enter Correct Information")
                 console.log(e.message);
             });
     }
-    /*
-const onLoginPressed = () => {
-    const nameError = nameValidator(String(username.value))
-    const passwordError = passwordValidator(password.value)
-    if (nameError || passwordError) {
-        setName({ ...username, error: nameError })
-        setPassword({ ...password, error: passwordError })
-        return
+
+    const storeData = async (value) => {
+        try {
+            const jsonValue = JSON.stringify(value)
+            await AsyncStorage.setItem('@auth', jsonValue)
+        } catch (e) {
+            // saving error
+            alert("ERROR: Problem Occurred with Async Storage")
+        }
     }
-
-    navigation.reset({
-        index: 0,
-        routes: [{ name: 'HomeScreen' }],
-    })
+    /*
+        const login = async (username, password) => {
+            axios.post('http://178.128.150.93:3000/login', {
+                username,
+                password
+            }).then(res => {
+                //res.data.token ?
+                const { data } = res;
+                console.log(res.data);
+                if (data) navigation.navigate('HomeScreen');
+            })
+                .catch(e => {
+                    console.log(e.message);
+                });
+        }
+        
+    const onLoginPressed = () => {
+        const nameError = nameValidator(String(username.value))
+        const passwordError = passwordValidator(password.value)
+        if (nameError || passwordError) {
+            setName({ ...username, error: nameError })
+            setPassword({ ...password, error: passwordError })
+            return
+        }
     
-    login(username, password).then(() => navigation.navigate('HomeScreen'))
-        .catch(e => {
-            console.log(e.message);
-        });
- 
-
-}
-       */
+        navigation.reset({
+            index: 0,
+            routes: [{ name: 'HomeScreen' }],
+        })
+        
+        login(username, password).then(() => navigation.navigate('HomeScreen'))
+            .catch(e => {
+                console.log(e.message);
+            });
+     
+    
+    }
+           */
     return (
         <Background>
             <BackButton goBack={navigation.goBack} />
@@ -97,7 +134,8 @@ const onLoginPressed = () => {
             </View>
             <Button
                 mode="contained"
-                onPress={() => login(username, password).then(() => navigation.navigate('HomeScreen'))}
+                onPress={() => login(username, password)/*.then(() => navigation.navigate('HomeScreen'))*/}
+                //onPress={() => navigation.navigate('HomeScreen')}
                 style={{ marginTop: 24 }}
             >
                 Login
@@ -108,7 +146,7 @@ const onLoginPressed = () => {
                     <Text style={styles.link}>Sign up</Text>
                 </TouchableOpacity>
             </View>
-        </Background>
+        </Background >
     )
 }
 

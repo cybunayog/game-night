@@ -9,6 +9,7 @@
     "eject": "expo eject"
   },
   "dependencies": {
+    "@react-native-async-storage/async-storage": "^1.17.3",
     "@react-native-community/geolocation": "^2.0.2",
     "@react-native-picker/picker": "^2.3.0",
     "@react-navigation/bottom-tabs": "^6.2.0",
@@ -23,7 +24,7 @@
     "expo-splash-screen": "~0.14.1",
     "expo-status-bar": "~1.2.0",
     "link": "^0.1.5",
-    "moment": "^2.29.1",
+    "moment": "^2.29.3",
     "node": "^16.13.2",
     "react": "17.0.1",
     "react-dom": "17.0.1",

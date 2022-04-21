@@ -25,12 +25,12 @@ export default function StartScreen({ navigation }) {
             >
                 Sign Up
             </Button>
-            <Button
+            {/* <Button
                 mode="outlined"
                 onPress={() => navigation.navigate('HomeScreen')}
             >
                 Home Test
-            </Button>
+            </Button> */}
             {/*             
             <Button
                 mode="outlined"

@@ -14,6 +14,7 @@ import { emailValidator } from '../helpers/emailValidator'
 import { passwordValidator } from '../helpers/passwordValidator'
 import { nameValidator } from '../helpers/nameValidator'
 //import { State } from 'react-native-gesture-handler'
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function CreateAccount({ navigation }) {
   const [username, setName] = useState('');
@@ -50,6 +51,8 @@ export default function CreateAccount({ navigation }) {
       if (res.data.user !== undefined && res.data.user.username === username) {
         console.log('User authenticated');
         //AsyncStorage.setItem('@auth', res.data.user);
+        // Using ASYNCSTORAGE to hold onto data throughout app use
+        storeData(res.data.user);
         navigation.navigate('HomeScreen');
         // USE ASYNCSTORAGE
       } else {
@@ -65,6 +68,15 @@ export default function CreateAccount({ navigation }) {
       });
   }
 
+  const storeData = async (value) => {
+    try {
+      const jsonValue = JSON.stringify(value)
+      await AsyncStorage.setItem('@auth', jsonValue)
+    } catch (e) {
+      // saving error
+      alert("ERROR: Problem Occurred with Async Storage")
+    }
+  }
   /*
     const onSignUpPressed = () => {
       const nameError = nameValidator(username);
@@ -153,7 +165,7 @@ export default function CreateAccount({ navigation }) {
         </Button>
         <View style={styles.row}>
           <Text>Already have an account? </Text>
-          <TouchableOpacity onPress={() => signin(username, email, password, city, favGame)}>
+          <TouchableOpacity onPress={() => navigation.navigate('LoginScreen')}>
             <Text style={styles.link}>Login</Text>
           </TouchableOpacity>
         </View>
