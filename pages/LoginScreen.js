@@ -18,18 +18,17 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function StartScreen({ navigation }) {
     const [username, setName] = useState('');
-    const [password, setPassword] = useState({ value: '', error: '' })
+    const [password, setPassword] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
 
     /**
- * Login
- * 
- * @param username
- * @param password
- * 
- * @return Object
- */
-
+     * Login
+     * 
+     * @param username
+     * @param password
+     * 
+     * @return Object
+     */
     const login = async (username, password) => {
         axios.post('http://178.128.150.93:3000/login', {
             username,
@@ -37,23 +36,17 @@ export default function StartScreen({ navigation }) {
         }).then(res => {
             const { data } = res;
             console.log(data);
-            if (res.data !== undefined) {
-                console.log('User authenticated');
-                // Using ASYNCSTORAGE to hold onto data throughout app use
-                storeData(res.data);
-                console.log(res.data);
-                navigation.navigate('HomeScreen');
-            } else {
-                // Put alert to enter a user or password
-                alert("ERROR: Please Enter Correct Information")
-                // Navigate back to Auth screen
-                navigation.navigate('LoginScreen');
-            }
-        })
-            .catch(e => {
-                alert("ERROR: Please Enter Correct Information")
-                console.log(e.message);
-            });
+            console.log('User authenticated');
+            // Using ASYNCSTORAGE to hold onto data throughout app use
+            storeData(res.data);
+            // navigate back to home screen
+
+            navigation.navigate('HomeScreen');
+        }).catch(e => {
+            alert("ERROR: Please Enter Correct Information")
+            console.log(e.message);
+            navigation.navigate('LoginScreen');
+        });
     }
 
     const storeData = async (value) => {
@@ -65,44 +58,7 @@ export default function StartScreen({ navigation }) {
             alert("ERROR: Problem Occurred with Async Storage")
         }
     }
-    /*
-        const login = async (username, password) => {
-            axios.post('http://178.128.150.93:3000/login', {
-                username,
-                password
-            }).then(res => {
-                //res.data.token ?
-                const { data } = res;
-                console.log(res.data);
-                if (data) navigation.navigate('HomeScreen');
-            })
-                .catch(e => {
-                    console.log(e.message);
-                });
-        }
-        
-    const onLoginPressed = () => {
-        const nameError = nameValidator(String(username.value))
-        const passwordError = passwordValidator(password.value)
-        if (nameError || passwordError) {
-            setName({ ...username, error: nameError })
-            setPassword({ ...password, error: passwordError })
-            return
-        }
-    
-        navigation.reset({
-            index: 0,
-            routes: [{ name: 'HomeScreen' }],
-        })
-        
-        login(username, password).then(() => navigation.navigate('HomeScreen'))
-            .catch(e => {
-                console.log(e.message);
-            });
-     
-    
-    }
-           */
+
     return (
         <Background>
             <BackButton goBack={navigation.goBack} />
@@ -112,15 +68,15 @@ export default function StartScreen({ navigation }) {
                 label="Username"
                 returnKeyType="next"
                 value={username}
-                onChangeText={(text) => setName(text)}
+                onChangeText={(name) => setName(name)}
                 error={!!errorMessage}
                 errorText={errorMessage}
             />
             <TextInput
                 label="Password"
                 returnKeyType="done"
-                value={password.value}
-                onChangeText={(text) => setPassword({ value: text, error: '' })}
+                value={password}
+                onChangeText={(pass) => setPassword(pass)}
                 error={!!password.error}
                 errorText={password.error}
                 secureTextEntry
@@ -134,8 +90,7 @@ export default function StartScreen({ navigation }) {
             </View>
             <Button
                 mode="contained"
-                onPress={() => login(username, password)/*.then(() => navigation.navigate('HomeScreen'))*/}
-                //onPress={() => navigation.navigate('HomeScreen')}
+                onPress={() => login(username, password)}
                 style={{ marginTop: 24 }}
             >
                 Login

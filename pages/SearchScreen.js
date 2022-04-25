@@ -57,7 +57,7 @@ export default function SearchScreen({ navigation }) {
 
                 <Image source={require('./assets/gameNight_marker.png')} style={{ height: 70, width: 70 }} />
             </Marker>
-            {<Picker
+            {/* {<Picker
                 style={{ height: 100, width: 250 }}
                 itemStyle={{ backgroundColor: "white", color: "black", fontFamily: "Arial", fontSize: 17 }}
             >
@@ -88,7 +88,7 @@ export default function SearchScreen({ navigation }) {
                 <Picker.Item label="40 mi" value="40 mi" />
                 <Picker.Item label="45 mi" value="45 mi" />
                 <Picker.Item label="50 mi" value="50 mi" />
-            </Picker>}
+            </Picker>} */}
         </MapView >
 
     )

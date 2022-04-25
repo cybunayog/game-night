@@ -122,10 +122,10 @@ function Homescreen({ navigation }) {
 
       <Schedule />
 
-      <Button mode="outlined"
+      {/* <Button mode="outlined"
         onPress={() => navigation.navigate('StartScreen')}>
         GO BACK
-      </Button>
+      </Button> */}
 
       <SafeAreaView style={styles.container}>
         <ScrollView style={styles.scrollView}>
