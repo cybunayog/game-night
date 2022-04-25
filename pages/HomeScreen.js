@@ -60,8 +60,13 @@ function Homescreen({ navigation }) {
           />
           <TextInput
             eventTime="month day year time"
-            placeholder="Time of Event"
+            placeholder="When? (mm/dd/yyyy hh:mm am/pm)"
           />
+          <Button
+            mode="contained"
+            onPress={() => setModalOpen(false)}>
+
+          </Button>
 
           <Button
             mode="contained"

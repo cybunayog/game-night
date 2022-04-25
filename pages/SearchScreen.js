@@ -6,7 +6,7 @@ import Button from '../components/Button'
 import Paragraph from '../components/Paragraph'
 import { StyleSheet, Text, View, Dimensions, Image, TextInput } from 'react-native'
 import { Picker } from '@react-native-picker/picker'
-import MapView, { Marker, AnimatedRegion } from 'react-native-maps'
+import MapView, { Marker, AnimatedRegion, Callout } from 'react-native-maps'
 import { PROVIDER_GOOGLE } from "react-native-maps"
 
 export default function SearchScreen({ navigation }) {
@@ -46,8 +46,18 @@ export default function SearchScreen({ navigation }) {
                 }}
             //  description={"Monopoly"}
             >
-                <Image source={require('./assets/gameNight_marker.png')} style={{ height: 70, width: 70 }} />
-            </Marker>
+                <MapView.Callout>
+                    <View style={{ height: 100, width: 200 }}>
+                        t{styles.paragraph}le =       <Text>Monopoly</Text>
+                        <Text>Starbucks, 809 N Azusa Ave, Azusa, CA 91702</Text>
+                        <Text>Host: Danielle Dominguez</Text>
+                        <Text>Seats Open: 5/8</Text>
+                        <Text>Time: 7:30pm</Text>
+                    </View>
+                </MapView.Callout>
+                < Image source={require('./assets/gameNight_marker.png')} style={{ height: 70, width: 70 }
+                } />
+            </Marker >
             <Marker
                 coordinate={{ // jp coffee shop
                     latitude: 34.1280,
