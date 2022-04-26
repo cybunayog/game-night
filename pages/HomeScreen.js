@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react'
-import { StyleSheet, View, Text, SafeAreaView, ScrollView, Modal, TouchableOpacity } from 'react-native'
+import { StyleSheet, View, Text, SafeAreaView, ScrollView, Modal, TouchableOpacity, Platform } from 'react-native'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { createStackNavigator } from '@react-navigation/stack'
 import { NavigationContainer } from '@react-navigation/native'
@@ -15,13 +15,70 @@ import TextInput from '../components/TextInput'
 //import { TouchableOpacity } from 'react-native-gesture-handler'
 import { MaterialIcons } from '@expo/vector-icons'
 // import Modal from "react-native-modal";
+import DateTimePicker from '@react-native-community/datetimepicker';
 
 const Stack = createStackNavigator()
 const Tab = createBottomTabNavigator()
 
 
+
+
+
 function Homescreen({ navigation }) {
   const [modalOpen, setModalOpen] = useState(false);
+  const [eventName, setEventName] = useState({ value: '', error: '' });
+  const [eventHostname, setEventHostname] = useState({ value: '', error: '' });
+  const [eventDescription, setEventDescription] = useState({ value: '', error: '' });
+  const [eventGame, setEventGame] = useState({ value: '', error: '' });
+  const [eventAddress, setEventAddress] = useState({ value: '', error: '' });
+  const [date, setDate] = useState(new Date());
+  const [mode, setMode] = useState('date');
+  const [show, setShow] = useState(false);
+  const [text, setText] = useState('Empty');
+
+  const onChange = (event, selectedDate) => {
+    const currentDate = selectedDate || date;
+    setShow(Platform.OS === 'ios');
+    setDate(currentDate);
+
+    let tempDate = new Date(currentDate);
+    let fDate = tempDate.getDate() + '/' + (tempDate.getMonth() + 1) + '/' + tempDate.getFullYear();
+    let fTime = 'Hours: ' + tempDate.getHours() + ' | Minutes' + tempDate.getMinutes();
+    setText(fDate + '\n' + fTime)
+
+    console.log(fDate + ' (' + fTime + ')')
+  }
+
+
+  const showMode = (currentMode) => {
+    setShow(true);
+    setMode(currentMode);
+  }
+
+  const createEvent = async (eventName, eventHostname, eventDescription, eventGame, eventAddress) => {
+    axios.post('http://178.128.150.93:3000/createEvent', {
+      eventName,
+      eventHostname,
+      eventDescription,
+      eventGame,
+      eventAddress,
+    }).then(res => {
+      //res.data.token ?
+      navigation.replace('HomeScreen');
+    });
+  }
+
+  // const showPicker = () => {
+  //   setIsPickerShow(true);
+  // };
+
+
+  // const onChange = (event, value) => {
+  //   setDate(value);
+  //   if (Platform.OS === 'android') {
+  //     setIsPickerShow(false);
+  //   }
+  // };
 
   return (
     <View style={{ flex: 2, justifyContent: 'center', alignItems: 'center' }}>
@@ -35,60 +92,88 @@ function Homescreen({ navigation }) {
             style={styles.modalToggle}
             onPress={() => setModalOpen(false)}
           />
+
           <TextInput
-            eventName="Event Name"
-            placeholder="Name of Event"
+            label="Event Name"
+            returnKeyType="next"
+            //placeholder="Name of Event"
+            value={eventName.value}
+            onChangeText={(text) => setEventName({ value: text, error: '' })}
+            error={!!eventName.error}
+            errorText={eventName.error}
           />
           <TextInput
-            eventHostname="Host Name"
-            placeholder="Host Name"
+            label="Host Name"
+            returnKeyType="next"
+            //placeholder="Host Name"
+            value={eventHostname.value}
+            onChangeText={(text) => setEventHostname({ value: text, error: '' })}
+            error={!!eventHostname.error}
+            errorText={eventHostname.error}
           />
           <TextInput
-            eventDescription="eventDescription"
-            placeholder="Special Host Notes"
+            label="Event Description"
+            returnKeyType="next"
+            //placeholder="Special Host Notes"
+            value={eventDescription.value}
+            onChangeText={(text) => setEventDescription({ value: text, error: '' })}
+            error={!!eventDescription.error}
+            errorText={eventDescription.error}
           />
           <TextInput
-            eventGame="game"
-            placeholder="Which Game?"
+            label="Game"
+            returnKeyType="next"
+            //placeholder="Which Game?"
+            value={eventGame.value}
+            onChangeText={(text) => setEventGame({ value: text, error: '' })}
+            error={!!eventGame.error}
+            errorText={eventGame.error}
           />
           <TextInput
-            eventAddress="address"
-            placeholder="Address of Event"
+            label="Address"
+            returnKeyType="next"
+            //placeholder="Address of Event"
+            value={eventAddress.value}
+            onChangeText={(text) => setEventAddress({ value: text, error: '' })}
+            error={!!eventAddress.error}
+            errorText={eventAddress.error}
           />
-          <TextInput
-            eventTime="month day year time"
-            placeholder="Time of Event"
-          />
+
+          <View>
+            <Button
+              mode="contained"
+              title='DatePicker'
+              onPress={() => showMode('date')}>
+              DATE
+            </Button>
+
+            <Button
+              mode="contained"
+              title='TimePicker'
+              onPress={() => showMode('time')}>
+              TIME
+            </Button>
+          </View>
+
+          {show && (
+            <DateTimePicker
+              style={styles.dateTimePicker}
+              testID='dateTimePicker'
+              value={date}
+              mode={mode}
+              is24Hour={false}
+              display='default'
+              onChange={onChange}
+            />)}
+
+
 
           <Button
             mode="contained"
+            onPress={() => signup(eventName, eventHostname, eventDescription, eventGame, eventAddress).then(() => navigation.navigate('HomeScreen'))}
             onPress={() => setModalOpen(false)}>
             CREATE
           </Button>
-
-
-          {/* if (!eventName.trim()) {
-              alert('Please enter Event Name');
-              return;
-            }
-            if (!eventHostname.trim()) {
-              alert('Please Enter Host Name');
-              return;
-            }
-            if (!eventGame.trim()) {
-              alert('Please Enter Game');
-              return;
-            }
-            if (!eventAddress.trim()) {
-              alert('Please Enter Event Address');
-              return;
-            }
-            if (!eventTime.trim()) {
-              alert('Please Enter Time');
-              return;
-            }
-            alert('Success');
-          }; */}
         </View>
       </Modal>
 
@@ -246,6 +331,36 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     alignSelf: 'center',
   },
+  container: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    flex: 1,
+    justifyContent: 'center',
+    padding: 50,
+  },
+  pickedDateContainer: {
+    padding: 20,
+    backgroundColor: '#eee',
+    borderRadius: 10,
+  },
+  pickedDate: {
+    fontSize: 18,
+    color: 'black',
+  },
+  btnContainer: {
+    padding: 30,
+  },
+  // This only works on iOS
+  dateTimePicker: {
+    width: 98,
+    // height: 200,
+    display: 'flex',
+    // flex: 1,
+    // alignItems: 'center',
+    justifyContent: 'center',
+    // alignItems: 'flex-start',
+  },
   flatButton: {
     marginBottom: 10,
     position: 'absolute',
@@ -259,7 +374,6 @@ const styles = StyleSheet.create({
     //padding: 20,
     borderRadius: 15,
     //alignSelf: 'center',
-
   }
 })
 //export default HomeScreen

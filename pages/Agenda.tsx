@@ -79,7 +79,7 @@ const Schedule = () => {
                                 alignItems: 'center',
                             }}>
                             <Text>{item.name}</Text>
-                            <Avatar.Text label="J" />
+                            <Avatar.Text label="DD" />
                         </View>
                     </Card.Content>
                 </Card>
@@ -104,13 +104,35 @@ const Schedule = () => {
 
     return (
         <View style={{ flex: 3, width: 375 }}>
+
             <Agenda
-                items={items}
-                loadItemsForMonth={loadItems}
+                //items={items}
+
+                items={{
+
+                    '2022-05-10':
+                        [{
+                            day: '2022-05-10',
+                            name: 'Starbucks\n809 N Azusa Ave. \nHost: Danielle Dominguez \nSeats Open: 5/8 \nTime: 7:30pm',
+                            height: 80
+                        }]
+
+                }}
+
+
+                //loadItemsForMonth={loadItems}
+
                 selected={selectedDate}
                 //selected={'2022-02-22'}
                 //initialDate='myDate'
+
                 renderItem={renderItem}
+
+
+                markedDates={{
+                    '2022-05-10': { marked: true },
+
+                }}
             />
         </View>
     );
