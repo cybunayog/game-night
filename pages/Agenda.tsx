@@ -105,8 +105,22 @@ const Schedule = () => {
     return (
         <View style={{ flex: 3, width: 375 }}>
             <Agenda
-                items={items}
+                //items={items}
+
+                items={{
+
+                    '2022-05-10':
+                        [{
+                            day: '2022-05-10',
+                            name: 'Starbucks\n809 N Azusa Ave. \nHost: Danielle Dominguez \nSeats Open: 5/8 \nTime: 7:30pm',
+                            height: 80
+                        }]
+
+                }}
+
+
                 loadItemsForMonth={loadItems}
+
                 selected={selectedDate}
                 //selected={'2022-02-22'}
                 //initialDate='myDate'
