@@ -120,6 +120,7 @@ const Schedule = () => {
 
 
                 loadItemsForMonth={loadItems}
+
                 selected={selectedDate}
                 //selected={'2022-02-22'}
                 //initialDate='myDate'
