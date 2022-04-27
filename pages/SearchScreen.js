@@ -47,8 +47,8 @@ export default function SearchScreen({ navigation }) {
             //  description={"Monopoly"}
             >
                 <MapView.Callout>
-                    <View style={{ height: 100, width: 200 }}>
-                        t{styles.paragraph}le =       <Text>Monopoly</Text>
+                    <View style={{ height: 150, width: 200 }}>
+                        <Text style={styles.paragraph}>Monopoly</Text>
                         <Text>Starbucks, 809 N Azusa Ave, Azusa, CA 91702</Text>
                         <Text>Host: Danielle Dominguez</Text>
                         <Text>Seats Open: 5/8</Text>
@@ -114,8 +114,8 @@ const styles = StyleSheet.create({
         height: Dimensions.get('window').height,
     },
     paragraph: {
-        margin: 24,
-        fontSize: 24,
+        margin: 5,
+        fontSize: 15,
         fontWeight: 'bold',
         textAlign: 'center',
     }
