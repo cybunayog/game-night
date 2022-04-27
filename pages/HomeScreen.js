@@ -4,12 +4,14 @@ import { StyleSheet, View, Text, SafeAreaView, ScrollView, Modal, TouchableOpaci
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { createStackNavigator } from '@react-navigation/stack'
 import { NavigationContainer } from '@react-navigation/native'
-import { Agenda } from 'react-native-calendars';
+import { Agenda } from 'react-native-calendars'
 import Button from '../components/Button'
 import FlatButton from '../components/CreateEventButton'
 import { Ionicons } from "@expo/vector-icons"
 import { theme } from '../core/theme'
 import SearchScreen from './SearchScreen'
+import FriendsScreen from './FriendsScreen'
+import Settings from './SettingsScreen'
 import Schedule from './Agenda'
 import TextInput from '../components/TextInput'
 //import FloatingTitleTextInput from "react-native-floating-title-text-input"
@@ -58,8 +60,13 @@ function Homescreen({ navigation }) {
           />
           <TextInput
             eventTime="month day year time"
-            placeholder="Time of Event"
+            placeholder="When? (mm/dd/yyyy hh:mm am/pm)"
           />
+          <Button
+            mode="contained"
+            onPress={() => setModalOpen(false)}>
+
+          </Button>
 
           <Button
             mode="contained"
@@ -120,10 +127,10 @@ function Homescreen({ navigation }) {
 
       <Schedule />
 
-      <Button mode="outlined"
+      {/* <Button mode="outlined"
         onPress={() => navigation.navigate('StartScreen')}>
         GO BACK
-      </Button>
+      </Button> */}
 
       <SafeAreaView style={styles.container}>
         <ScrollView style={styles.scrollView}>
@@ -155,23 +162,23 @@ function Messages() {
 
   )
 }
-function Settings() {
-  return (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <Text>Settings</Text>
-    </View>
+// function Settings() {
+//   return (
+//     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+//       <Text>Settings</Text>
+//     </View>
 
-  )
-}
+//   )
+// }
 
-function Friends() {
-  return (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <Text>Friends</Text>
-    </View>
+// function Friends() {
+//   return (
+//     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+//       <Text>Friends</Text>
+//     </View>
 
-  )
-}
+//   )
+// }
 
 function MyTabs() {
   return (
@@ -189,8 +196,6 @@ function MyTabs() {
             iconName = focused ? 'settings' : 'settings-outline';
           } else if (route.name === 'Search') {
             iconName = focused ? 'ios-search' : 'ios-search-outline';
-          } else if (route.name === 'Messages') {
-            iconName = focused ? 'ios-chatbox-ellipses' : 'ios-chatbox-ellipses-outline';
           } else if (route.name === 'Friends') {
             iconName = focused ? 'ios-people-sharp' : 'ios-people-outline';
           }
@@ -208,7 +213,6 @@ function MyTabs() {
       })}
     >
       <Tab.Screen name='Home' component={Homescreen} />
-      <Tab.Screen name='Friends' component={Friends} />
       <Tab.Screen name='Search' component={SearchScreen} options={({ navigation }) => {
         return {
           tabbarButton: () => (<TouchableOpacity onPress={() => navigation.navigate('SearchScreen')}>
@@ -217,8 +221,23 @@ function MyTabs() {
         };
       }}
       />
-      <Tab.Screen name='Messages' component={Messages} />
-      <Tab.Screen name='Settings' component={Settings} />
+      <Tab.Screen name='Friends' component={FriendsScreen} options={({ navigation }) => {
+        return {
+          tabbarButton: () => (<TouchableOpacity onPress={() => navigation.navigate('FriendsScreen')}>
+          </TouchableOpacity>),
+
+        };
+      }}
+      />
+      {/*<Tab.Screen name='Messages' component={Messages} />*/}
+      <Tab.Screen name='Settings' component={Settings} options={({ navigation }) => {
+        return {
+          tabbarButton: () => (<TouchableOpacity onPress={() => navigation.navigate('SettingsScreen')}>
+          </TouchableOpacity>),
+
+        };
+      }}
+      />
     </ Tab.Navigator >
   );
 }

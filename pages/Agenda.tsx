@@ -125,6 +125,8 @@ const Schedule = () => {
                 //selected={'2022-02-22'}
                 //initialDate='myDate'
                 renderItem={renderItem}
+
+                marked
             />
         </View>
     );

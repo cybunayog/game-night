@@ -6,7 +6,7 @@ import Button from '../components/Button'
 import Paragraph from '../components/Paragraph'
 import { StyleSheet, Text, View, Dimensions, Image, TextInput } from 'react-native'
 import { Picker } from '@react-native-picker/picker'
-import MapView, { Marker, AnimatedRegion } from 'react-native-maps'
+import MapView, { Marker, AnimatedRegion, Callout } from 'react-native-maps'
 import { PROVIDER_GOOGLE } from "react-native-maps"
 
 export default function SearchScreen({ navigation }) {
@@ -46,8 +46,18 @@ export default function SearchScreen({ navigation }) {
                 }}
             //  description={"Monopoly"}
             >
-                <Image source={require('./assets/gameNight_marker.png')} style={{ height: 70, width: 70 }} />
-            </Marker>
+                <MapView.Callout>
+                    <View style={{ height: 150, width: 200 }}>
+                        <Text style={styles.paragraph}>Monopoly</Text>
+                        <Text>Starbucks, 809 N Azusa Ave, Azusa, CA 91702</Text>
+                        <Text>Host: Danielle Dominguez</Text>
+                        <Text>Seats Open: 5/8</Text>
+                        <Text>Time: 7:30pm</Text>
+                    </View>
+                </MapView.Callout>
+                < Image source={require('./assets/gameNight_marker.png')} style={{ height: 70, width: 70 }
+                } />
+            </Marker >
             <Marker
                 coordinate={{ // jp coffee shop
                     latitude: 34.1280,
@@ -57,7 +67,10 @@ export default function SearchScreen({ navigation }) {
 
                 <Image source={require('./assets/gameNight_marker.png')} style={{ height: 70, width: 70 }} />
             </Marker>
-            {/* <Picker>
+            {/* {<Picker
+                style={{ height: 100, width: 250 }}
+                itemStyle={{ backgroundColor: "white", color: "black", fontFamily: "Arial", fontSize: 17 }}
+            >
                 <Picker.Item label="Monopoly" value="monopoly" />
                 <Picker.Item label="Clue" value="clue" />
                 <Picker.Item label="Life" value="life" />
@@ -70,9 +83,11 @@ export default function SearchScreen({ navigation }) {
                 <Picker.Item label="Pandemic" value="pandemic" />
                 <Picker.Item label="Risk" value="risk" />
                 <Picker.Item label="Other" value="other" />
-            </Picker> */}
+            </Picker>}
 
-            {/* <Picker>
+            {<Picker
+                style={{ height: 200, width: 600 }}
+                itemStyle={{ backgroundColor: "white", color: "black", fontFamily: "Arial", fontSize: 17 }}>
                 <Picker.Item label="5 mi" value="5 mi" />
                 <Picker.Item label="10 mi" value="10 mi" />
                 <Picker.Item label="15 mi" value="15 mi" />
@@ -83,7 +98,7 @@ export default function SearchScreen({ navigation }) {
                 <Picker.Item label="40 mi" value="40 mi" />
                 <Picker.Item label="45 mi" value="45 mi" />
                 <Picker.Item label="50 mi" value="50 mi" />
-            </Picker> */}
+            </Picker>} */}
         </MapView >
 
     )
@@ -99,8 +114,8 @@ const styles = StyleSheet.create({
         height: Dimensions.get('window').height,
     },
     paragraph: {
-        margin: 24,
-        fontSize: 24,
+        margin: 5,
+        fontSize: 15,
         fontWeight: 'bold',
         textAlign: 'center',
     }
